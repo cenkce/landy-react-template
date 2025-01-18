@@ -2,8 +2,9 @@ import { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import routes from "./config";
 import { Styles } from "../styles/styles";
+
+const HomPage = lazy(() => import(`../pages/Home`));
 
 const Router = () => {
   return (
@@ -11,16 +12,13 @@ const Router = () => {
       <Styles />
       <Header />
       <Switch>
-        {routes.map((routeItem) => {
-          return (
-            <Route
-              key={routeItem.component}
-              path={routeItem.path}
-              exact={routeItem.exact}
-              component={lazy(() => import(`../pages/${routeItem.component}`))}
-            />
-          );
-        })}
+        return (
+        <Route
+          path={["/", "/home"]}
+          exact={true}
+          component={HomPage}
+        />
+        );
       </Switch>
       <Footer />
     </Suspense>
